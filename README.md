@@ -1,141 +1,141 @@
-# GitHub 포트폴리오 자동 업로드 앱
+# Lucide React
 
-초급 개발자와 GitHub 사용이 어려운 사용자를 위한 간편한 GitHub 포트폴리오 관리 앱입니다.
+Implementation of the lucide icon library for react applications.
 
-## 📋 프로젝트 개요
+> What is lucide? Read it [here](https://github.com/lucide-icons/lucide#what-is-lucide).
 
-명령어 없이도 GitHub에 파일을 업로드할 수 있는 웹 기반 애플리케이션입니다. 드래그 앤 드롭으로 간단하게 파일을 업로드하고, 자동으로 GitHub에 커밋됩니다.
+## Installation
 
-### 개발 배경
-- Git 명령어의 복잡성으로 인한 진입 장벽
-- 컴퓨터가 없는 상황에서의 접근성 문제
-- 반복적인 명령어 입력의 번거로움
-
-### 타겟 사용자
-- 학부생
-- 초급 개발자
-- GitHub 사용의 진입 장벽에 부딪힌 사람
-- GitHub를 편리하게 사용하고 싶은 사람
-
-## ✨ 주요 기능
-
-- ✅ **GitHub 인증**: Personal Access Token 기반 로그인
-- ✅ **레포지토리 관리**: 목록 조회 및 새 레포지토리 생성
-- ✅ **파일 업로드**: 드래그 앤 드롭 또는 파일 선택
-- ✅ **자동 커밋**: 업로드한 파일 자동으로 GitHub에 커밋
-- ✅ **반응형 디자인**: 모바일, 태블릿, 데스크톱 지원
-- ✅ **실시간 피드백**: 업로드 상태 및 결과 즉시 표시
-
-## 🛠 기술 스택
-
-- **React 18** + **TypeScript**: 사용자 인터페이스
-- **Vite**: 빠른 개발 서버 및 빌드
-- **Tailwind CSS**: 스타일링 및 반응형 디자인
-- **GitHub REST API**: 레포지토리 및 파일 관리
-- **@octokit/rest**: GitHub API 클라이언트
-
-## 🚀 시작하기
-
-### 1. 의존성 설치
-
-```bash
-npm install
+```sh
+yarn add lucide-react
 ```
 
-### 2. GitHub Personal Access Token 생성
+or
 
-1. [GitHub Settings > Tokens](https://github.com/settings/tokens/new) 접속
-2. **Note**: "GitHub Portfolio Uploader" 입력
-3. **Expiration**: 원하는 기간 선택
-4. **Scopes**: `repo` 체크 (전체 권한)
-5. **Generate token** 클릭 후 토큰 복사
-
-> ⚠️ **주의**: 토큰을 안전하게 보관하세요. 다른 사람과 공유하지 마세요.
-
-### 3. 개발 서버 실행
-
-```bash
-npm run dev
+```sh
+npm install lucide-react
 ```
 
-브라우저에서 `http://localhost:3000`이 자동으로 열립니다.
+## How to use
 
-### 4. 사용 방법
+It's built with ES modules so it's completely tree-shakable.
+Each icon can be imported as a react component.
 
-1. **로그인**: 생성한 Personal Access Token 입력
-2. **레포지토리 선택**: 기존 레포지토리 선택 또는 새로 생성
-3. **파일 업로드**: 파일을 드래그 앤 드롭하거나 선택
-4. **완료**: 자동으로 GitHub에 커밋됩니다!
+### Example
 
-## 📁 프로젝트 구조
+You can pass additional props to adjust the icon.
 
-```
-appDevelopment/
-├── src/
-│   ├── components/       # React 컴포넌트
-│   │   ├── Login.tsx
-│   │   ├── Dashboard.tsx
-│   │   ├── FileUploader.tsx
-│   │   └── RepositorySelector.tsx
-│   ├── contexts/         # Context API
-│   │   └── AuthContext.tsx
-│   ├── types/            # TypeScript 타입 정의
-│   │   └── github.ts
-│   ├── utils/            # 유틸리티 함수
-│   │   └── github.ts
-│   ├── App.tsx           # 메인 앱 컴포넌트
-│   ├── main.tsx          # 진입점
-│   └── index.css         # 전역 스타일
-├── package.json
-├── vite.config.ts
-└── README.md
+```js
+import { Camera } from 'lucide-react';
+
+const App = () => {
+  return <Camera color="red" size={48} />;
+};
+
+export default App;
 ```
 
-## 📚 문서
+### Props
 
-- [프로젝트 계획 제안서](./PROJECT_PROPOSAL.md) - 상세한 프로젝트 계획 및 명세
-- [프로젝트 개요](./PROJECT_OVERVIEW.md) - 개발 계기 및 개요
-- [시연 가이드](./DEMO_GUIDE.md) - 시연 시나리오 및 체크리스트
+| name          | type     | default      |
+| ------------- | -------- | ------------ |
+| `size`        | _Number_ | 24           |
+| `color`       | _String_ | currentColor |
+| `strokeWidth` | _Number_ | 2            |
 
-## 🔧 빌드
+### Custom props
 
-### 프로덕션 빌드
+You can also pass custom props that will be added in the svg as attributes.
 
-```bash
-npm run build
+```js
+const App = () => {
+  return <Camera fill="red" />;
+};
 ```
 
-빌드된 파일은 `dist/` 폴더에 생성됩니다.
+### Generic icon component
 
-### 빌드 미리보기
+It is possible to create a generic icon component to load icons.
 
-```bash
-npm run preview
+> :warning: The example below is importing all ES modules. This is **not** recommended when you using a bundler since your application build size will grow substantially.
+
+```js
+import { icons } from 'lucide-react';
+
+const Icon = ({ name, color, size }) => {
+  const LucideIcon = icons[name];
+
+  return <LucideIcon color={color} size={size} />;
+};
+
+export default Icon;
 ```
 
-## ⚠️ 제약사항
+#### With Dynamic Imports
 
-- **파일 크기**: GitHub API는 파일당 100MB까지 지원
-- **API 제한**: 시간당 5,000 requests 제한
-- **보안**: Personal Access Token은 브라우저에 저장됨 (프로덕션에서는 백엔드 권장)
+Lucide react exports a dynamic import map `dynamicIconImports`. Useful for applications that want to show icons dynamically by icon name. For example when using a content management system with where icon names are stored in a database.
 
-## 🔮 향후 계획
+When using client side rendering, it will fetch the icon component when it's needed. This will reduce the initial bundle size.
 
-- [ ] 폴더 구조 업로드
-- [ ] 파일 편집 및 삭제
-- [ ] OAuth 인증 (토큰 대신)
-- [ ] 커밋 메시지 커스터마이징
-- [ ] 파일 미리보기
-- [ ] 업로드 히스토리
+The keys of the dynamic import map are the lucide original icon names.
 
-## 📄 라이선스
+Example with React suspense:
 
-MIT
+```tsx
+import React, { lazy, Suspense } from 'react';
+import { dynamicIconImports, LucideProps } from 'lucide-react';
 
-## 👥 기여
+const fallback = <div style={{ background: '#ddd', width: 24, height: 24 }}/>
 
-이슈 및 풀 리퀘스트 환영합니다!
+interface IconProps extends Omit<LucideProps, 'ref'> {
+  name: keyof typeof dynamicIconImports;
+}
 
----
+const Icon = ({ name, ...props }: IconProps) => {
+  const LucideIcon = lazy(dynamicIconImports[name]);
 
-**"GitHub를 더 쉽게, 더 편리하게"** 🚀
+  return (
+    <Suspense fallback={fallback}>
+      <LucideIcon {...props} />
+    </Suspense>
+  );
+}
+
+export default Icon
+```
+
+##### NextJS Example
+
+In NextJS, [the dynamic function](https://nextjs.org/docs/pages/building-your-application/optimizing/lazy-loading#nextdynamic) can be used to dynamically load the icon component.
+
+To make dynamic imports work with NextJS, you need to add `lucide-react` to the [`transpilePackages`](https://nextjs.org/docs/app/api-reference/next-config-js/transpilePackages) option in your `next.config.js` like this:
+
+```js
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  transpilePackages: ['lucide-react'] // add this
+}
+
+module.exports = nextConfig
+
+```
+
+You can then start using it:
+
+```tsx
+import dynamic from 'next/dynamic'
+import { LucideProps } from 'lucide-react';
+import dynamicIconImports from 'lucide-react/dynamicIconImports';
+
+interface IconProps extends LucideProps {
+  name: keyof typeof dynamicIconImports;
+}
+
+const Icon = ({ name, ...props }: IconProps) => {
+  const LucideIcon = dynamic(dynamicIconImports[name])
+
+  return <LucideIcon {...props} />;
+};
+
+export default Icon;
+```
